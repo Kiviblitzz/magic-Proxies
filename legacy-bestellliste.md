@@ -2,9 +2,9 @@
 
 Ziel: rund 620 Proxies für einen gemeinsamen Kartenpool. Karten werden zwischen Decks umgesteckt. Die Deckabdeckung wird inklusive Sideboards gerechnet.
 
-## Feste Länder — 112 Exemplare
+## Feste Länder — 146 Exemplare
 
-Bei 620 Karten bleiben 508 Plätze für weitere Länder, Staples und Nischendecks.
+Bei 620 Karten bleiben 474 Plätze für weitere Länder, Staples und Nischendecks.
 
 ### Original-Duals
 
@@ -57,14 +57,27 @@ Bei 620 Karten bleiben 508 Plätze für weitere Länder, Staples und Nischendeck
 4 Wasteland
 4 Karakas
 4 Gaea's Cradle
+4 Ancient Tomb
+4 City of Traitors
+4 Cavern of Souls
+4 Urza's Saga
+4 The Tabernacle at Pendrell Vale
+4 Eldrazi Temple
+4 Eye of Ugin
+4 Planar Nexus
+```
+
+### Einzelkarten
+
+```text
+1 Maze of Ith
+1 Bojuka Bog
 ```
 
 ## Vorgemerkt für den Decklistenabgleich
 
-- Hohe Priorität: je 4 Ancient Tomb, City of Traitors, Cavern of Souls und Urza's Saga.
-- Lands / Depths: je bis zu 4 Dark Depths, Thespian's Stage, Boseiju, Who Endures und Yavimaya, Cradle of Growth. Je 1 The Tabernacle at Pendrell Vale, Maze of Ith und Bojuka Bog. Ghost Quarter und Otawara, Soaring City nach Liste.
-- Eldrazi: Eldrazi Temple und Eye of Ugin nach Liste.
-- Mystic Forge Tron: Planar Nexus, Urza's Mine, Urza's Power Plant und Urza's Tower nach Liste.
+- Lands / Depths: je bis zu 4 Dark Depths, Thespian's Stage, Boseiju, Who Endures und Yavimaya, Cradle of Growth. Ghost Quarter und Otawara, Soaring City nach Liste.
+- Mystic Forge Tron: Urza's Mine, Urza's Power Plant und Urza's Tower nach Liste.
 - Basics aus dem vorhandenen Bestand einplanen und vor der Bestellung abgleichen.
 
 Quellen für den Abgleich: [Lands](https://postboard.gg/archetype/legacy/lands), [Mystic Forge Tron](https://mymtgo.com/metagame/legacy/mystic-forge-tron), [Death & Taxes](https://mymtgo.com/metagame/legacy/death-taxes).
