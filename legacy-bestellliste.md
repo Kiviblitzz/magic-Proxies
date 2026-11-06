@@ -4,7 +4,7 @@ Ziel: rund 620 Proxies für einen gemeinsamen Kartenpool. Karten werden zwischen
 
 ## Feste Länder — 146 Exemplare
 
-Bei 620 Karten bleiben 474 Plätze für weitere Länder, Staples und Nischendecks.
+Aktueller Stand: **330 von 620 Exemplaren** (146 Länder und 184 Staples). **290 Plätze** bleiben für weitere Länder und Deckpakete.
 
 ### Original-Duals
 
@@ -73,6 +73,87 @@ Bei 620 Karten bleiben 474 Plätze für weitere Länder, Staples und Nischendeck
 1 Maze of Ith
 1 Bojuka Bog
 ```
+
+## Legacy-Staples — 184 Exemplare
+
+Die Mengen gelten für einen gemeinsamen Kartenpool. Bei der Auswahl sind sowohl häufig gespielte Karten als auch Bausteine für die vorgesehenen Tempo-, Combo- und Artefaktdecks berücksichtigt. Die Mengen für Sideboard-Karten werden mit den konkreten Decklisten abgeglichen.
+
+### Blau — Cantrips, Counter und Tempo
+
+```text
+4 Brainstorm
+4 Ponder
+4 Preordain
+4 Force of Will
+4 Force of Negation
+4 Daze
+4 Spell Pierce
+4 Stifle
+4 Delver of Secrets
+4 Dragon's Rage Channeler
+4 Murktide Regent
+4 Tamiyo, Inquisitive Student
+2 Brazen Borrower
+```
+
+### Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen
+
+```text
+4 Swords to Plowshares
+4 Prismatic Ending
+4 Solitude
+4 Thoughtseize
+4 Orcish Bowmasters
+4 Fatal Push
+4 Lightning Bolt
+4 Galvanic Discharge
+4 Green Sun's Zenith
+4 Veil of Summer
+4 Endurance
+2 Abrupt Decay
+2 Force of Vigor
+```
+
+### Mana, Artefakte und Saga-Ziele
+
+```text
+4 Lotus Petal
+4 Chrome Mox
+4 Mox Diamond
+4 Mox Opal
+4 Lion's Eye Diamond
+4 Dark Ritual
+4 Chalice of the Void
+4 Aether Vial
+4 Urza's Bauble
+4 Mishra's Bauble
+4 Kozilek's Command
+1 Pithing Needle
+1 Soul-Guide Lantern
+1 Shadowspear
+1 Haywire Mite
+1 Retrofitter Foundry
+```
+
+### Sideboard — Graveyard, Combo und Artefakte
+
+```text
+4 Consign to Memory
+4 Disruptor Flute
+4 Leyline of the Void
+3 Pyroblast
+3 Red Elemental Blast
+3 Surgical Extraction
+3 Faerie Macabre
+3 Meltdown
+2 Grafdigger's Cage
+2 Null Rod
+2 Containment Priest
+2 Dress Down
+2 Deafening Silence
+```
+
+Quellen: [MTGO-Staples](https://decklistdata.com/staples/legacy?days=30), [Wizards Legacy-Bannliste](https://magic.wizards.com/en/banned-restricted-list).
 
 ## Vorgemerkt für den Decklistenabgleich
 
