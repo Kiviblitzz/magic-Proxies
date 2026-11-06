@@ -1,10 +1,10 @@
 # Legacy-Proxy-Bestellliste
 
-Ziel: rund 620 Proxies für einen gemeinsamen Kartenpool. Karten werden zwischen Decks umgesteckt. Die Deckabdeckung wird inklusive Sideboards gerechnet.
+Ziel: bis zu 612 Proxies für einen gemeinsamen Kartenpool. Karten werden zwischen Decks umgesteckt. Die Deckabdeckung wird inklusive Sideboards gerechnet.
 
 ## Feste Länder — 146 Exemplare
 
-Aktueller Stand: **330 von 620 Exemplaren** (146 Länder und 184 Staples). **290 Plätze** bleiben für weitere Länder und Deckpakete.
+Planungsstand vor der persönlichen Auswahl: **330 von 612 Exemplaren** (146 Länder und 184 Staples). **282 Plätze** bleiben für weitere Länder und Deckpakete.
 
 ### Original-Duals
 
