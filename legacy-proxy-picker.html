@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legacy Proxy Picker</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#121519;color:#edf1f3;font:16px system-ui}main{max-width:920px;margin:auto;padding:24px}header{position:sticky;top:0;background:#121519;padding:12px 0;z-index:1}h1{margin:0;font-size:clamp(25px,5vw,42px)}p{color:#bdc8cc}button,input,select{font:inherit;background:#242b32;color:inherit;border:1px solid #596873;border-radius:8px;padding:8px}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}button.primary{background:#a4f0ca;color:#132820;border-color:transparent;font-weight:700}label{cursor:pointer}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.controls input{flex:1;min-width:160px}progress{width:100%;accent-color:#a4f0ca}section{background:#1c2228;border-radius:12px;padding:8px 16px;margin:12px 0}h2{font-size:17px;color:#a4f0ca}article{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid #333d46}article label{flex:1;display:flex;gap:8px;align-items:center}article input[type=checkbox]{width:19px;height:19px;accent-color:#a4f0ca;flex-shrink:0}article input[type=number]{width:62px}small{color:#bdc8cc}#status{min-height:1.3em;margin:4px 0}form label{width:100%}
+</style>
+<main><header><small>MAGIC · LEGACY</small><h1>Proxy-Bestellung</h1>
+<p id="total" aria-live="polite"></p><progress max="620" value="0" aria-label="Belegte Bestellplätze"></progress>
+<div class="controls"><input type="search" id="search" aria-label="Kartensuche" placeholder="Karte oder Kategorie suchen"><select id="view" aria-label="Ansicht"><option value="all">Alle Karten</option><option value="selected">Nur ausgewählte</option><option value="open">Nur offene</option></select></div>
+<div class="controls"><button id="download" class="primary">Bestellliste herunterladen</button><button id="copy">Liste kopieren</button></div><div id="status" role="status"></div></header>
+<div id="list"></div>
+<section><h2>Eigene Karte ergänzen</h2><form id="add" class="controls"><input name="card" required aria-label="Kartenname" placeholder="Englischer Kartenname"><button>Hinzufügen</button></form></section>
+</main>
+<script>
+const initial=[["Badlands",4,"Original-Duals",true],["Bayou",4,"Original-Duals",true],["Plateau",4,"Original-Duals",true],["Savannah",4,"Original-Duals",true],["Scrubland",4,"Original-Duals",true],["Taiga",4,"Original-Duals",true],["Tropical Island",4,"Original-Duals",true],["Tundra",4,"Original-Duals",true],["Underground Sea",4,"Original-Duals",true],["Volcanic Island",4,"Original-Duals",true],["Arid Mesa",4,"Fetchlands",true],["Bloodstained Mire",4,"Fetchlands",true],["Flooded Strand",4,"Fetchlands",true],["Marsh Flats",4,"Fetchlands",true],["Misty Rainforest",4,"Fetchlands",true],["Polluted Delta",4,"Fetchlands",true],["Scalding Tarn",4,"Fetchlands",true],["Verdant Catacombs",4,"Fetchlands",true],["Windswept Heath",4,"Fetchlands",true],["Wooded Foothills",4,"Fetchlands",true],["Commercial District",2,"Surveil-Lands",true],["Elegant Parlor",2,"Surveil-Lands",true],["Hedge Maze",2,"Surveil-Lands",true],["Lush Portico",2,"Surveil-Lands",true],["Meticulous Archive",2,"Surveil-Lands",true],["Raucous Theater",2,"Surveil-Lands",true],["Shadowy Backstreet",2,"Surveil-Lands",true],["Thundering Falls",2,"Surveil-Lands",true],["Undercity Sewers",2,"Surveil-Lands",true],["Underground Mortuary",2,"Surveil-Lands",true],["Wasteland",4,"Weitere feste Playsets",true],["Karakas",4,"Weitere feste Playsets",true],["Gaea's Cradle",4,"Weitere feste Playsets",true],["Ancient Tomb",4,"Weitere feste Playsets",true],["City of Traitors",4,"Weitere feste Playsets",true],["Cavern of Souls",4,"Weitere feste Playsets",true],["Urza's Saga",4,"Weitere feste Playsets",true],["The Tabernacle at Pendrell Vale",4,"Weitere feste Playsets",true],["Eldrazi Temple",4,"Weitere feste Playsets",true],["Eye of Ugin",4,"Weitere feste Playsets",true],["Planar Nexus",4,"Weitere feste Playsets",true],["Maze of Ith",1,"Einzelkarten",true],["Bojuka Bog",1,"Einzelkarten",true],["Brainstorm",4,"Blau — Cantrips, Counter und Tempo",false],["Ponder",4,"Blau — Cantrips, Counter und Tempo",false],["Preordain",4,"Blau — Cantrips, Counter und Tempo",false],["Force of Will",4,"Blau — Cantrips, Counter und Tempo",false],["Force of Negation",4,"Blau — Cantrips, Counter und Tempo",false],["Daze",4,"Blau — Cantrips, Counter und Tempo",false],["Spell Pierce",4,"Blau — Cantrips, Counter und Tempo",false],["Stifle",4,"Blau — Cantrips, Counter und Tempo",false],["Delver of Secrets",4,"Blau — Cantrips, Counter und Tempo",false],["Dragon's Rage Channeler",4,"Blau — Cantrips, Counter und Tempo",false],["Murktide Regent",4,"Blau — Cantrips, Counter und Tempo",false],["Tamiyo, Inquisitive Student",4,"Blau — Cantrips, Counter und Tempo",false],["Brazen Borrower",2,"Blau — Cantrips, Counter und Tempo",false],["Swords to Plowshares",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Prismatic Ending",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Solitude",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Thoughtseize",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Orcish Bowmasters",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Fatal Push",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Lightning Bolt",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Galvanic Discharge",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Green Sun's Zenith",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Veil of Summer",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Endurance",4,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Abrupt Decay",2,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Force of Vigor",2,"Weiß, Schwarz, Rot und Grün — Interaktion und Kreaturen",false],["Lotus Petal",4,"Mana, Artefakte und Saga-Ziele",false],["Chrome Mox",4,"Mana, Artefakte und Saga-Ziele",false],["Mox Diamond",4,"Mana, Artefakte und Saga-Ziele",false],["Mox Opal",4,"Mana, Artefakte und Saga-Ziele",false],["Lion's Eye Diamond",4,"Mana, Artefakte und Saga-Ziele",false],["Dark Ritual",4,"Mana, Artefakte und Saga-Ziele",false],["Chalice of the Void",4,"Mana, Artefakte und Saga-Ziele",false],["Aether Vial",4,"Mana, Artefakte und Saga-Ziele",false],["Urza's Bauble",4,"Mana, Artefakte und Saga-Ziele",false],["Mishra's Bauble",4,"Mana, Artefakte und Saga-Ziele",false],["Kozilek's Command",4,"Mana, Artefakte und Saga-Ziele",false],["Pithing Needle",1,"Mana, Artefakte und Saga-Ziele",false],["Soul-Guide Lantern",1,"Mana, Artefakte und Saga-Ziele",false],["Shadowspear",1,"Mana, Artefakte und Saga-Ziele",false],["Haywire Mite",1,"Mana, Artefakte und Saga-Ziele",false],["Retrofitter Foundry",1,"Mana, Artefakte und Saga-Ziele",false],["Consign to Memory",4,"Sideboard — Graveyard, Combo und Artefakte",false],["Disruptor Flute",4,"Sideboard — Graveyard, Combo und Artefakte",false],["Leyline of the Void",4,"Sideboard — Graveyard, Combo und Artefakte",false],["Pyroblast",3,"Sideboard — Graveyard, Combo und Artefakte",false],["Red Elemental Blast",3,"Sideboard — Graveyard, Combo und Artefakte",false],["Surgical Extraction",3,"Sideboard — Graveyard, Combo und Artefakte",false],["Faerie Macabre",3,"Sideboard — Graveyard, Combo und Artefakte",false],["Meltdown",3,"Sideboard — Graveyard, Combo und Artefakte",false],["Grafdigger's Cage",2,"Sideboard — Graveyard, Combo und Artefakte",false],["Null Rod",2,"Sideboard — Graveyard, Combo und Artefakte",false],["Containment Priest",2,"Sideboard — Graveyard, Combo und Artefakte",false],["Dress Down",2,"Sideboard — Graveyard, Combo und Artefakte",false],["Deafening Silence",2,"Sideboard — Graveyard, Combo und Artefakte",false]];
+const key='legacy-proxy-picker-v1';
+const byId=id=>document.getElementById(id);
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(key))||{};}catch{}
+const catalog=[...initial,...(saved.custom||[])];
+const selected=new Map(catalog.map(([name,recommended,,land])=>[name,saved.quantities?.[name]??(land?recommended:0)]));
+const quantities=new Map(catalog.map(([name,recommended])=>[name,saved.preferred?.[name]||selected.get(name)||recommended]));
+function save(){
+  try{localStorage.setItem(key,JSON.stringify({custom:catalog.slice(initial.length),quantities:Object.fromEntries(selected),preferred:Object.fromEntries(quantities)}));}catch{byId('status').textContent='Lokales Speichern nicht verfügbar. Exportiere deine Auswahl.';}
+}
+function summary(){
+  const total=[...selected.values()].reduce((a,b)=>a+b,0);
+  const remaining=620-total;
+  byId('total').textContent=total+' / 620 Exemplare · '+(remaining>=0?remaining+' frei':-remaining+' über dem Limit');
+  document.querySelector('progress').value=Math.min(620,total);
+  for(const id of ['download','copy'])byId(id).disabled=total===0||remaining<0;
+}
+function render(){
+  const query=byId('search').value.trim().toLowerCase();
+  const view=byId('view').value;
+  const list=byId('list');
+  const sections=new Map();
+  list.replaceChildren();
+  for(const [name,recommended,group] of catalog){
+    const count=selected.get(name);
+    if(!(name+' '+group).toLowerCase().includes(query)||view==='selected'&&!count||view==='open'&&count)continue;
+    if(!sections.has(group)){
+      const section=document.createElement('section'),heading=document.createElement('h2');
+      heading.textContent=group;section.append(heading);list.append(section);sections.set(group,section);
+    }
+    const row=document.createElement('article'),label=document.createElement('label'),toggle=document.createElement('input'),qty=document.createElement('input');
+    toggle.type='checkbox';toggle.checked=Boolean(count);label.append(toggle,name);
+    qty.type='number';qty.min=1;qty.max=620;qty.step=1;qty.value=quantities.get(name);qty.setAttribute('aria-label','Stückzahl '+name);
+    toggle.onchange=()=>{selected.set(name,toggle.checked?quantities.get(name):0);save();summary();if(view!=='all')render();};
+    qty.onchange=()=>{
+      const next=Math.max(1,Math.min(620,Math.trunc(Number(qty.value)||recommended)));
+      qty.value=next;quantities.set(name,next);
+      if(toggle.checked)selected.set(name,next);
+      save();summary();
+    };
+    row.append(label,qty);sections.get(group).append(row);
+  }
+  if(!sections.size)list.textContent='Keine Karten in dieser Ansicht.';
+}
+function exportText(){return catalog.filter(([name])=>selected.get(name)>0).map(([name])=>selected.get(name)+' '+name).join('\n')+'\n';}
+byId('download').onclick=()=>{
+  const url=URL.createObjectURL(new Blob([exportText()],{type:'text/plain;charset=utf-8'}));
+  const link=document.createElement('a');link.href=url;link.download='legacy-bestellung.txt';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+byId('copy').onclick=async()=>{
+  try{await navigator.clipboard.writeText(exportText());byId('status').textContent='Bestellliste kopiert.';}
+  catch{byId('status').textContent='Kopieren nicht verfügbar. Nutze den Download.';}
+};
+byId('search').oninput=render;
+byId('view').onchange=render;
+byId('add').onsubmit=event=>{
+  event.preventDefault();
+  const input=event.currentTarget.elements.card;
+  const name=input.value.trim();
+  if(!name)return;
+  const existing=catalog.find(([card])=>card.toLowerCase()===name.toLowerCase());
+  if(!existing){catalog.push([name,1,'Eigene Karten',false]);selected.set(name,1);quantities.set(name,1);save();}
+  byId('search').value=existing?existing[0]:name;byId('view').value='all';input.value='';render();summary();
+};
+summary();render();
+</script></html>
